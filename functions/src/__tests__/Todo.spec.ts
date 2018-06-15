@@ -1,8 +1,8 @@
 import * as admin from "firebase-admin";
 import * as fs from "fs";
 
-import { ContactService } from "../services/Contact";
 import { envConfig } from "../services/Env";
+import { TodoService } from "../services/Todo";
 
 const config = envConfig();
 
@@ -16,19 +16,20 @@ admin.initializeApp({
   storageBucket: `${config.project}.appspot.com`
 });
 
-describe("Madness Labs", () => {
+const Todo = new TodoService();
+
+describe("Todo Service", () => {
   jest.setTimeout(30000);
 
-  const Contact = new ContactService();
+  it("should load", async () => {
+    expect(Todo).toBeTruthy();
+  });
 
-  it("Should send contact submission", async () => {
-    const email = await Contact.sendEmail(
-      "bobby@madnesslabs.net",
-      "This is a test!"
-    );
+  it("should add a todo", async () => {
+    const task = await Todo.add({
+      task: "Buy Almond Milk"
+    });
 
-    console.log(email[0].statusCode);
-
-    expect(email).toBeTruthy();
+    expect(task).toBeTruthy();
   });
 });
