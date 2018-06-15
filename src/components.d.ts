@@ -29,12 +29,19 @@ declare global {
 import '@stencil/router';
 import '@stencil/state-tunnel';
 
+import {
+  APIService,
+} from './services/api';
+import {
+  DatabaseService,
+} from './services/database';
 
 declare global {
 
   namespace StencilComponents {
     interface AppHome {
-
+      'api': APIService;
+      'db': DatabaseService;
     }
   }
 
@@ -57,7 +64,8 @@ declare global {
   }
   namespace JSXElements {
     export interface AppHomeAttributes extends HTMLAttributes {
-
+      'api'?: APIService;
+      'db'?: DatabaseService;
     }
   }
 }

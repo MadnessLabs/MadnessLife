@@ -1,7 +1,7 @@
 export default {
   app: {
     url: "http://localhost:3245",
-    apiUrl: "http://localhost:5000/madness-life/us-central1/api"
+    apiUrl: "http://localhost:5000/madness-life/us-central1"
   },
   firebase: {
     apiKey: "AIzaSyDotgMg3CAdB3_4EqLcdVbNbvOQKx4uU7E",
