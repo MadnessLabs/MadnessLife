@@ -23,24 +23,13 @@ export class AppHome {
       "#task-input input"
     );
 
-    this.api
-      .post("todoAdd", {
-        task: taskInputEl.value
+    this.db
+      .add("todos", {
+        task: taskInputEl.value,
+        done: false
       })
       .then(() => {
-        this.getTodos();
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  getTodos() {
-    this.db
-      .list("todos")
-      .then(todos => {
-        console.log("test");
-        this.todos = todos;
+        // Do nothing
       })
       .catch(error => {
         console.log(error);
@@ -48,7 +37,23 @@ export class AppHome {
   }
 
   componentDidLoad() {
-    this.getTodos();
+    this.db.watchCollection(
+      "todos",
+      [
+        {
+          key: "done",
+          operator: "==",
+          value: false
+        }
+      ],
+      docs => {
+        const todos = [];
+        docs.data.map(doc => {
+          todos.push(doc.data());
+        });
+        this.todos = todos;
+      }
+    );
   }
 
   render() {
@@ -56,7 +61,7 @@ export class AppHome {
       <div>
         <ion-card>
           <ion-list>
-            {this.todos
+            {this.todos && this.todos.length > 0
               ? this.todos.map(todo => <ion-item>{todo.task}</ion-item>)
               : null}
           </ion-list>

@@ -1,7 +1,8 @@
-// import * as firebase from "firebase";
+//import * as firebase from "firebase";
 declare var firebase: any;
 
 export class DatabaseService {
+  //public service: firebase.firestore.Firestore;
   public service: any;
   public watchers: any = {};
 
@@ -50,7 +51,7 @@ export class DatabaseService {
     return data;
   }
 
-  public async add(collectionName: string, data: any, id?: number | string) {
+  public async add(collectionName: string, data: any, id?: string) {
     let document = await this.collection(collectionName);
     document = id ? document.doc(id) : document.doc();
 
@@ -87,12 +88,53 @@ export class DatabaseService {
     return newDocument.data();
   }
 
+  public watchCollection(
+    collectionName: string,
+    where: {
+      key: string;
+      operator: "==" | "!=" | ">" | ">=" | "<" | "<=";
+      value: any;
+    }[],
+    callback: any
+  ) {
+    this.watchers[`${collectionName}`] = this.collection(collectionName);
+    if (where) {
+      where.map(condition => {
+        this.watchers[`${collectionName}`] = this.watchers[
+          `${collectionName}`
+        ].where(condition.key, condition.operator, condition.value);
+      });
+    }
+    this.watchers[`${collectionName}`].onSnapshot(snapshot => {
+      if (callback && typeof callback === "function") {
+        callback({ data: snapshot.docs });
+      }
+    });
+  }
+
+  public unwatchCollection(collectionName: string) {
+    if (
+      this.watchers[collectionName] &&
+      typeof this.watchers[collectionName] === "function"
+    ) {
+      this.watchers[collectionName]();
+
+      return true;
+    } else {
+      console.log(
+        `There is no watcher running on ${collectionName} collection.`
+      );
+
+      return false;
+    }
+  }
+
   public watchDocument(collectionName: string, id: string, callback) {
     this.watchers[`${collectionName}:${id}`] = this.document(
       collectionName,
       id
     ).onSnapshot(doc => {
-      if (callback && typeof callback === 'function') {
+      if (callback && typeof callback === "function") {
         callback({ data: doc.data() });
       }
     });
@@ -102,7 +144,7 @@ export class DatabaseService {
     const watcherName = `${collectionName}:${id}`;
     if (
       this.watchers[watcherName] &&
-      typeof this.watchers[watcherName] === 'function'
+      typeof this.watchers[watcherName] === "function"
     ) {
       this.watchers[watcherName]();
 
