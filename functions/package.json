@@ -30,10 +30,8 @@
   },
   "enjin": {
     "project": "madness-life",
-    "comment": "Local Environment Configuration Goes Here!",
-    "sendgrid": {
-      "key": "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"
-    }
+    "comment": "Local Environment Configuration Goes Here!"
+
   },
   "private": true,
   "jest": {
