@@ -1,8 +1,8 @@
-//import * as firebase from "firebase";
+// import * as firebase from "firebase";
 declare var firebase: any;
 
 export class DatabaseService {
-  //public service: firebase.firestore.Firestore;
+  // public service: firebase.firestore.Firestore;
   public service: any;
   public watchers: any = {};
 

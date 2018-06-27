@@ -2,7 +2,7 @@
   This is temporarily commented out as the `setupConfig` method has been temporarily removed
 */
 
-import environment from './environment';
+import environment from "./environment";
 // import * as firebase from "firebase";
 declare var firebase: any;
 

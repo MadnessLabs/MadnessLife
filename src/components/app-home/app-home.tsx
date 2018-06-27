@@ -1,6 +1,6 @@
 import { Component, Element, Prop, State } from "@stencil/core";
-import { DatabaseService } from "../../services/database";
 import { APIService } from "../../services/api";
+import { DatabaseService } from "../../services/database";
 
 @Component({
   tag: "app-home",

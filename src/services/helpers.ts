@@ -3,20 +3,22 @@
  */
 export class HelperService {
   public getParameterByName(name) {
-    const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    const match = RegExp("[?&]" + name + "=([^&]*)").exec(
+      window.location.search
+    );
 
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    return match && decodeURIComponent(match[1].replace(/\+/g, " "));
   }
 
   public async clearCache() {
-    return (await caches.keys()).forEach((c) => caches.delete(c));
+    return (await caches.keys()).forEach(c => caches.delete(c));
   }
 
   public formatUSD(amount) {
-    const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
+    const formatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2
     });
 
     return formatter.format(amount ? amount : 0);
@@ -53,11 +55,13 @@ export class HelperService {
   }
 
   public setByPath(obj, path, value) {
-    const pList = path.split('.');
+    const pList = path.split(".");
     const len = pList.length;
     for (let i = 0; i < len - 1; i++) {
       const elem = pList[i];
-      if (!obj[elem]) { obj[elem] = {}; }
+      if (!obj[elem]) {
+        obj[elem] = {};
+      }
       obj = obj[elem];
     }
 
@@ -67,14 +71,29 @@ export class HelperService {
   public simulateClick(el) {
     let evt;
     if (document.createEvent) {
-      evt = document.createEvent('MouseEvents');
-      evt.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      evt = document.createEvent("MouseEvents");
+      evt.initMouseEvent(
+        "click",
+        true,
+        true,
+        window,
+        0,
+        0,
+        0,
+        0,
+        0,
+        false,
+        false,
+        false,
+        false,
+        0,
+        null
+      );
     }
-    (evt) ? el.dispatchEvent(evt) : (el.click && el.click());
+    evt ? el.dispatchEvent(evt) : el.click && el.click();
   }
 
   public forceBrowserResize() {
-    window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(new Event("resize"));
   }
-
 }

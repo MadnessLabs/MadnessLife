@@ -38,15 +38,15 @@ export class AuthService {
 
   async onEmailLink() {
     if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-      let email = window.localStorage.getItem('emailForSignIn');
+      let email = window.localStorage.getItem("emailForSignIn");
       if (!email) {
-        email = window.prompt('Please provide your email for confirmation');
+        email = window.prompt("Please provide your email for confirmation");
       }
 
       const authUser = await firebase
         .auth()
         .signInWithEmailLink(email, window.location.href);
-      window.localStorage.removeItem('emailForSignIn');
+      window.localStorage.removeItem("emailForSignIn");
 
       this.emitLoggedInEvent(authUser);
 
@@ -58,7 +58,7 @@ export class AuthService {
     (<any>window).RecaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       buttonId,
       {
-        size: 'invisible',
+        size: "invisible",
         callback: function() {
           // On Capture Creation
         }
@@ -68,14 +68,14 @@ export class AuthService {
 
   withPhoneNumber(phoneNumber: string, capId: any) {
     // reCAPTCHA solved, allow signInWithPhoneNumber.
-    phoneNumber = '+' + phoneNumber;
-    window.localStorage.setItem('phoneForSignIn', phoneNumber);
+    phoneNumber = "+" + phoneNumber;
+    window.localStorage.setItem("phoneForSignIn", phoneNumber);
 
     return this.service.signInWithPhoneNumber(phoneNumber, capId);
   }
 
   withEmailLink(email: string, actionCodeSettings: any) {
-    window.localStorage.setItem('emailForSignIn', email);
+    window.localStorage.setItem("emailForSignIn", email);
 
     return this.service.sendSignInLinkToEmail(email, actionCodeSettings);
   }
@@ -90,23 +90,23 @@ export class AuthService {
         !session ||
         (!session.emailVerified &&
           session.providerData &&
-          session.providerData[0].providerId === 'password')
+          session.providerData[0].providerId === "password")
       ) {
         return false;
       }
-      console.log('session - ', session);
+      console.log("session - ", session);
       if (session) {
-        localStorage.setItem('tmg:session', JSON.stringify(session));
+        localStorage.setItem("tmg:session", JSON.stringify(session));
       }
-      if (callback && typeof callback === 'function') {
+      if (callback && typeof callback === "function") {
         callback(session);
       }
     });
   }
 
   getFromStorage() {
-    return localStorage.getItem('referaflood:session')
-      ? JSON.parse(localStorage.getItem('referaflood:session'))
+    return localStorage.getItem("referaflood:session")
+      ? JSON.parse(localStorage.getItem("referaflood:session"))
       : null;
   }
 
@@ -118,20 +118,20 @@ export class AuthService {
 
   emitLoggedInEvent(data) {
     document.body.dispatchEvent(
-      new CustomEvent('authLoggedIn', { detail: { data } })
+      new CustomEvent("authLoggedIn", { detail: { data } })
     );
   }
 
   emitLoggedOutEvent() {
     document.body.dispatchEvent(
-      new CustomEvent('authLoggedOut', { detail: {} })
+      new CustomEvent("authLoggedOut", { detail: {} })
     );
   }
 
   createUser(email: string) {
     return new Promise((resolve, reject) => {
       try {
-        console.log('am I here?');
+        console.log("am I here?");
         this.service
           .createUserWithEmailAndPassword(email)
           .then(data => {
@@ -200,7 +200,7 @@ export class AuthService {
       (<any>window).plugins.googleplus.login(
         {
           webClientId:
-            '423724975087-uqfg4lrfe2fsal8v1oihf5mcj3ikvqnl.apps.googleusercontent.com',
+            "423724975087-uqfg4lrfe2fsal8v1oihf5mcj3ikvqnl.apps.googleusercontent.com",
           offline: true
         },
         googleData => {
@@ -260,8 +260,8 @@ export class AuthService {
     // });
     let provider;
     let shouldRedirect = redirect;
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      console.log('Running in PWA mode...');
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      console.log("Running in PWA mode...");
       shouldRedirect = shouldRedirect ? shouldRedirect : true;
     }
 
@@ -276,19 +276,19 @@ export class AuthService {
       //     });
       //   }
       // }
-      if (network === 'facebook') {
+      if (network === "facebook") {
         provider = new firebase.auth.FacebookAuthProvider();
-      } else if (network === 'google') {
+      } else if (network === "google") {
         provider = new firebase.auth.GoogleAuthProvider();
-      } else if (network === 'twitter') {
+      } else if (network === "twitter") {
         provider = new firebase.auth.TwitterAuthProvider();
       } else {
         reject({
           message:
-            'A social network is required or the one provided is not yet supported.'
+            "A social network is required or the one provided is not yet supported."
         });
       }
-      this.service[shouldRedirect ? 'signInWithRedirect' : 'signInWithPopup'](
+      this.service[shouldRedirect ? "signInWithRedirect" : "signInWithPopup"](
         provider
       )
         .then(data => {

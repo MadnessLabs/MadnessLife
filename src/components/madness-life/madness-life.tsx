@@ -1,13 +1,13 @@
 import { Component } from "@stencil/core";
 import "@stencil/router";
 
+import { APIService } from "../../services/api";
 import { ConfigService } from "../../services/config";
 import { DatabaseService } from "../../services/database";
-import { APIService } from "../../services/api";
 
 @Component({
   tag: "madness-life",
-  styleUrl: "madness-life.css"
+  styleUrl: "madness-life.scss"
 })
 export class MadnessLife {
   defaultProps: {
