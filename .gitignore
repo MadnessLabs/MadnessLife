@@ -27,3 +27,4 @@ UserInterfaceState.xcuserstate
 src/global/environment.ts
 enjin.*.ts
 !enjin.local.ts
+serviceAccountKey.json
