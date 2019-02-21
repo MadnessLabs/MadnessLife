@@ -2,7 +2,7 @@ import * as admin from "firebase-admin";
 import * as fs from "fs";
 
 import { env } from "../services/Env";
-import { TodoService } from "../services/Todo";
+import { PayService } from "../services/Pay";
 
 const config = env();
 
@@ -10,28 +10,28 @@ const serviceAccountKey = JSON.parse(
   fs.readFileSync(process.cwd() + "/serviceAccountKey.json", "utf8")
 );
 
-console.log(config.project);
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccountKey),
   databaseURL: `https://${config.project}.firebaseio.com`,
   storageBucket: `${config.project}.appspot.com`
 });
 
-const Todo = new TodoService();
+const Pay = new PayService(config.stripe.secret);
 
-describe("Todo Service", () => {
+describe("Pay Service", () => {
   jest.setTimeout(30000);
 
   it("should load", async () => {
-    expect(Todo).toBeTruthy();
+    expect(Pay).toBeTruthy();
   });
 
-  it("should add a todo", async () => {
-    const task = await Todo.add({
-      task: "Buy Almond Milk"
+  it("should take payment with a card", async () => {
+    const payment = await Pay.withCard({
+      test: 'wee'
     });
 
-    expect(task).toBeTruthy();
+    console.log(payment);
+
+    expect(payment).toBeTruthy();
   });
 });

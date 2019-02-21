@@ -18,7 +18,8 @@
     "@sendgrid/mail": "^6.2.1",
     "cors": "^2.8.4",
     "firebase-admin": "~5.12.1",
-    "firebase-functions": "^1.0.3"
+    "firebase-functions": "^1.0.3",
+    "stripe": "^6.25.1"
   },
   "devDependencies": {
     "@types/jest": "^22.2.2",
@@ -27,11 +28,6 @@
     "ts-jest": "^22.4.2",
     "tslint": "^5.8.0",
     "typescript": "^2.5.3"
-  },
-  "enjin": {
-    "project": "madness-life",
-    "comment": "Local Environment Configuration Goes Here!"
-
   },
   "private": true,
   "jest": {
