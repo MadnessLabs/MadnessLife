@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State } from "@stencil/core";
+import { Component, Element, Listen, Prop, State } from "@stencil/core";
 import { APIService } from "../../services/api";
 import { DatabaseService } from "../../services/database";
 
@@ -13,6 +13,11 @@ export class AppHome {
   @Prop() db: DatabaseService;
 
   @State() todos: { task: string }[];
+
+  @Listen('enjinCardSubmit')
+  onCardSubmit(event) {
+    console.log(event.detail);
+  }
 
   /**
    * Adds a todo list item with the API
@@ -72,6 +77,8 @@ export class AppHome {
             <ion-button type="submit">Add</ion-button>
           </form>
         </ion-card>
+
+        <enjin-pay-with-card stripeKey="pk_test_G6ksY0dKXlgogvnitD0Wm1oc" />
       </div>
     );
   }
