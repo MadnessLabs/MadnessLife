@@ -27,7 +27,8 @@ describe("Pay Service", () => {
 
   it("should take payment with a card", async () => {
     const payment = await Pay.withCard({
-      test: 'wee'
+      token: "tok_1E6WlvKwCNOJpgzx5oqQGrNA",
+      amount: 100
     });
 
     console.log(payment);

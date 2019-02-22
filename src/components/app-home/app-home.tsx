@@ -15,8 +15,13 @@ export class AppHome {
   @State() todos: { task: string }[];
 
   @Listen('enjinCardSubmit')
-  onCardSubmit(event) {
-    console.log(event.detail);
+  async onCardSubmit(event) {
+    const response = await this.api.post('cardPayment', {
+      token: event.detail.token.id,
+      amount: 150
+    });
+
+    console.log(response);
   }
 
   /**
