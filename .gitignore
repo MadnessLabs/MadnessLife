@@ -2,6 +2,7 @@ dist/
 !www/favicon.ico
 www/
 functions/lib
+functions/environment.json
 
 *~
 *.sw[mnpcod]
