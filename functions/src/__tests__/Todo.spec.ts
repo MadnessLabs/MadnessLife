@@ -1,10 +1,10 @@
 import * as admin from "firebase-admin";
 import * as fs from "fs";
 
-import { envConfig } from "../services/Env";
+import { env } from "../services/Env";
 import { TodoService } from "../services/Todo";
 
-const config = envConfig();
+const config = env();
 
 const serviceAccountKey = JSON.parse(
   fs.readFileSync(process.cwd() + "/serviceAccountKey.json", "utf8")
