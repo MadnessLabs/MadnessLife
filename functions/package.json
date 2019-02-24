@@ -16,9 +16,11 @@
     "@sendgrid/client": "^6.2.1",
     "@sendgrid/helpers": "^6.2.1",
     "@sendgrid/mail": "^6.2.1",
+    "@types/stripe": "^6.19.7",
     "cors": "^2.8.4",
     "firebase-admin": "~5.12.1",
-    "firebase-functions": "^1.0.3"
+    "firebase-functions": "^1.0.3",
+    "stripe": "^6.25.1"
   },
   "devDependencies": {
     "@types/jest": "^22.2.2",
@@ -31,7 +33,6 @@
   "enjin": {
     "project": "madness-life",
     "comment": "Local Environment Configuration Goes Here!"
-
   },
   "private": true,
   "jest": {
@@ -39,7 +40,9 @@
       "^.+\\.tsx?$": "ts-jest"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "modulePathIgnorePatterns": ["/lib/"],
+    "modulePathIgnorePatterns": [
+      "/lib/"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",

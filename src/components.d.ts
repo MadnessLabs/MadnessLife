@@ -26,6 +26,7 @@ declare global {
   interface HTMLAttributes {}
 }
 
+import '@madnesslabs/enjin-components';
 import '@stencil/router';
 import '@stencil/state-tunnel';
 

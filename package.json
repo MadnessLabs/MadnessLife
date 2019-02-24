@@ -43,6 +43,7 @@
     "test:api:watch": "npm run api:test:watch"
   },
   "dependencies": {
+    "@madnesslabs/enjin-components": "0.0.8",
     "@stencil/core": "^0.9.6",
     "@stencil/router": "^0.2.1",
     "firebase": "^4.10.1"

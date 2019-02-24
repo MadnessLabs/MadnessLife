@@ -1,4 +1,5 @@
 import { Component } from "@stencil/core";
+import "@madnesslabs/enjin-components";
 import "@stencil/router";
 
 import { APIService } from "../../services/api";
